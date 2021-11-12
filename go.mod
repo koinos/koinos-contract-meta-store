@@ -1,4 +1,4 @@
-module github.com/koinos/contract-meta-store
+module github.com/koinos/koinos-contract-meta-store
 
 go 1.16
 
