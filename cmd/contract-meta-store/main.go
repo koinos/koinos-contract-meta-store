@@ -15,8 +15,10 @@ import (
 	log "github.com/koinos/koinos-log-golang"
 	koinosmq "github.com/koinos/koinos-mq-golang"
 	"github.com/koinos/koinos-proto-golang/koinos/broadcast"
+	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
+	"github.com/koinos/koinos-proto-golang/koinos/protocol"
 	"github.com/koinos/koinos-proto-golang/koinos/rpc"
-	"github.com/koinos/koinos-proto-golang/koinos/rpc/contract_meta_store"
+	contract_meta_store_rpc "github.com/koinos/koinos-proto-golang/koinos/rpc/contract_meta_store"
 
 	util "github.com/koinos/koinos-util-golang"
 	flag "github.com/spf13/pflag"
@@ -96,8 +98,8 @@ func main() {
 	metaStore := metastore.NewContractMetaStore(backend)
 
 	requestHandler.SetRPCHandler(metaStoreRPC, func(rpcType string, data []byte) ([]byte, error) {
-		request := &contract_meta_store.ContractMetaStoreRequest{}
-		response := &contract_meta_store.ContractMetaStoreResponse{}
+		request := &contract_meta_store_rpc.ContractMetaStoreRequest{}
+		response := &contract_meta_store_rpc.ContractMetaStoreResponse{}
 
 		err := proto.Unmarshal(data, request)
 
@@ -106,10 +108,10 @@ func main() {
 		} else {
 			log.Debugf("Received RPC request: %s", request.String())
 			switch v := request.Request.(type) {
-			case *contract_meta_store.ContractMetaStoreRequest_GetContractMeta:
+			case *contract_meta_store_rpc.ContractMetaStoreRequest_GetContractMeta:
 				if contractMeta, err := metaStore.GetContractMeta(v.GetContractMeta.ContractId); err == nil {
-					r := &contract_meta_store.GetContractMetaResponse{Meta: contractMeta}
-					response.Response = &contract_meta_store.ContractMetaStoreResponse_GetContractMeta{GetContractMeta: r}
+					r := &contract_meta_store_rpc.GetContractMetaResponse{Meta: contractMeta}
+					response.Response = &contract_meta_store_rpc.ContractMetaStoreResponse_GetContractMeta{GetContractMeta: r}
 				}
 			default:
 				err = errors.New("unknown request")
@@ -118,7 +120,7 @@ func main() {
 
 		if err != nil {
 			e := &rpc.ErrorResponse{Message: string(err.Error())}
-			response.Response = &contract_meta_store.ContractMetaStoreResponse_Error{Error: e}
+			response.Response = &contract_meta_store_rpc.ContractMetaStoreResponse_Error{Error: e}
 		}
 
 		return proto.Marshal(response)
@@ -134,7 +136,22 @@ func main() {
 
 		log.Infof("Received broadcasted block - %s", util.BlockString(submission.Block))
 
-		// STUB: parse ABIs attached to operations
+		// Iterate through the operations and look for upload contract abi
+		for _, tx := range submission.Block.Transactions {
+			var active protocol.ActiveTransactionData
+			if err := proto.Unmarshal(tx.Active, &active); err != nil {
+				log.Warnf("Unable to parse active transaction data: %v", tx.Active)
+				continue
+			}
+
+			for _, op := range active.Operations {
+				switch v := op.Op.(type) {
+				case *protocol.Operation_UploadContract:
+					msi := &contract_meta_store.ContractMetaItem{Abi: v.UploadContract.Abi}
+					metaStore.AddMeta(v.UploadContract.ContractId, msi)
+				}
+			}
+		}
 	})
 
 	requestHandler.Start()
