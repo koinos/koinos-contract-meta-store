@@ -19,6 +19,7 @@ import (
 	"github.com/koinos/koinos-proto-golang/koinos/protocol"
 	"github.com/koinos/koinos-proto-golang/koinos/rpc"
 	contract_meta_store_rpc "github.com/koinos/koinos-proto-golang/koinos/rpc/contract_meta_store"
+	"github.com/mr-tron/base58"
 
 	util "github.com/koinos/koinos-util-golang"
 	flag "github.com/spf13/pflag"
@@ -147,7 +148,7 @@ func main() {
 			for _, op := range active.Operations {
 				switch v := op.Op.(type) {
 				case *protocol.Operation_UploadContract:
-					log.Infof("Adding contract information for contract - %s", util.Base58ID(v.UploadContract.ContractId))
+					log.Infof("Adding contract information for contract - %s", base58.Encode(v.UploadContract.ContractId))
 					msi := &contract_meta_store.ContractMetaItem{Abi: v.UploadContract.Abi}
 					metaStore.AddMeta(v.UploadContract.ContractId, msi)
 				}
