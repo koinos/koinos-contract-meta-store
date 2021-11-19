@@ -10,12 +10,12 @@ import (
 
 // MetaStore contains a backend object and handles requests
 type MetaStore struct {
-	backend MetaStoreBackend
+	backend Backend
 	rwmutex sync.RWMutex
 }
 
 // NewContractMetaStore creates a new MetaStore wrapping the provided backend
-func NewContractMetaStore(backend MetaStoreBackend) *MetaStore {
+func NewContractMetaStore(backend Backend) *MetaStore {
 	return &MetaStore{backend: backend}
 }
 

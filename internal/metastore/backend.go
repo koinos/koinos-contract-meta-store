@@ -1,7 +1,7 @@
 package metastore
 
-// MetaStoreBackend interface defines an abstract key-value store
-type MetaStoreBackend interface {
+// Backend interface defines an abstract key-value store
+type Backend interface {
 	/**
 	 * Store the given value in the given key.
 	 */

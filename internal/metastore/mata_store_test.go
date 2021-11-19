@@ -19,8 +19,8 @@ const (
 
 var backendTypes = [...]int{MapBackendType, BadgerBackendType}
 
-func NewBackend(backendType int) MetaStoreBackend {
-	var backend MetaStoreBackend
+func NewBackend(backendType int) Backend {
+	var backend Backend
 	switch backendType {
 	case MapBackendType:
 		backend = NewMapBackend()
