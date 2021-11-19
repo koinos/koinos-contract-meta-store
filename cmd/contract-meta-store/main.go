@@ -134,7 +134,7 @@ func main() {
 			return
 		}
 
-		log.Infof("Received broadcasted block - %s", util.BlockString(submission.Block))
+		log.Debugf("Received broadcasted block - %s", util.BlockString(submission.Block))
 
 		// Iterate through the operations and look for upload contract abi
 		for _, tx := range submission.Block.Transactions {
@@ -147,7 +147,7 @@ func main() {
 			for _, op := range active.Operations {
 				switch v := op.Op.(type) {
 				case *protocol.Operation_UploadContract:
-					log.Infof("Adding contract information for contract - %s", v.UploadContract.ContractId)
+					log.Infof("Adding contract information for contract - %s", util.Base58ID(v.UploadContract.ContractId))
 					msi := &contract_meta_store.ContractMetaItem{Abi: v.UploadContract.Abi}
 					metaStore.AddMeta(v.UploadContract.ContractId, msi)
 				}
