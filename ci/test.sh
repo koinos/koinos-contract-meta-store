@@ -4,7 +4,7 @@ set -e
 set -x
 
 if [[ -z $BUILD_DOCKER ]]; then
-   go test -v github.com/koinos/contract-meta-store/internal/metastore -coverprofile=./build/contractmetastore.out -coverpkg=./internal/metastore
+   go test -v github.com/koinos/koinos-contract-meta-store/internal/metastore -coverprofile=./build/contractmetastore.out -coverpkg=./internal/metastore
    gcov2lcov -infile=./build/contractmetastore.out -outfile=./build/contractmetastore.info
 
    golint -set_exit_status ./...
