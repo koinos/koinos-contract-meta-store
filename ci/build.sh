@@ -14,5 +14,5 @@ else
    fi
 
    echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
-   docker build . -t koinos/contract-meta-store:$TAG
+   docker build . -t koinos/koinos-contract-meta-store:$TAG
 fi

@@ -9,5 +9,5 @@ else
    fi
 
    echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
-   docker push koinos/contract-meta-store:$TAG
+   docker push koinos/koinos-contract-meta-store:$TAG
 fi
