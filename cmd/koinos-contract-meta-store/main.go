@@ -139,13 +139,7 @@ func main() {
 
 		// Iterate through the operations and look for upload contract abi
 		for _, tx := range submission.Block.Transactions {
-			var active protocol.ActiveTransactionData
-			if err := proto.Unmarshal(tx.Active, &active); err != nil {
-				log.Warnf("Unable to parse active transaction data: %v", tx.Active)
-				continue
-			}
-
-			for _, op := range active.Operations {
+			for _, op := range tx.Operations {
 				switch v := op.Op.(type) {
 				case *protocol.Operation_UploadContract:
 					log.Infof("Adding metadata for contract - %s", base58.Encode(v.UploadContract.ContractId))
