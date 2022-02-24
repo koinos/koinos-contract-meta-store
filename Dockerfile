@@ -5,7 +5,9 @@ WORKDIR /koinos-contract-meta-store
 
 RUN apk update && \
     apk add \
-        gcc
+        gcc \
+        musl-dev \
+        linux-headers
 
 RUN go get ./... && \
     go build -o koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
