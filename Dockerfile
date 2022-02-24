@@ -1,7 +1,11 @@
-FROM golang:1.17.7-alpine as builder
+FROM golang:1.16.2-alpine as builder
 
 ADD . /koinos-contract-meta-store
 WORKDIR /koinos-contract-meta-store
+
+RUN apk update && \
+    apk add \
+        gcc
 
 RUN go get ./... && \
     go build -o koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
