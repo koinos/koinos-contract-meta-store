@@ -3,6 +3,12 @@ FROM golang:1.16.2-alpine as builder
 ADD . /koinos-contract-meta-store
 WORKDIR /koinos-contract-meta-store
 
+RUN apk update && \
+    apk add \
+        gcc \
+        musl-dev \
+        linux-headers
+
 RUN go get ./... && \
     go build -o koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
 
