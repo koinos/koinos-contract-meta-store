@@ -7,7 +7,7 @@ if [[ -z $BUILD_DOCKER ]]; then
    go test -v github.com/koinos/koinos-contract-meta-store/internal/metastore -coverprofile=./build/contractmetastore.out -coverpkg=./internal/metastore
    gcov2lcov -infile=./build/contractmetastore.out -outfile=./build/contractmetastore.info
 
-   golint -set_exit_status ./...
+   golangci-lint run ./...
 else
    TAG="$TRAVIS_BRANCH"
    if [ "$TAG" = "master" ]; then

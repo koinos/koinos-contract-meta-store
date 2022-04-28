@@ -144,7 +144,9 @@ func main() {
 				case *protocol.Operation_UploadContract:
 					log.Infof("Adding metadata for contract - %s", base58.Encode(v.UploadContract.ContractId))
 					msi := &contract_meta_store.ContractMetaItem{Abi: v.UploadContract.Abi}
-					metaStore.AddMeta(v.UploadContract.ContractId, msi)
+					if err := metaStore.AddMeta(v.UploadContract.ContractId, msi); err != nil {
+						log.Warnf("Error adding contract metadata: %s", err)
+					}
 				}
 			}
 		}

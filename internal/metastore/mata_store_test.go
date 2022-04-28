@@ -24,7 +24,6 @@ func NewBackend(backendType int) Backend {
 	switch backendType {
 	case MapBackendType:
 		backend = NewMapBackend()
-		break
 	case BadgerBackendType:
 		dirname, err := ioutil.TempDir(os.TempDir(), "metastore-test-*")
 		if err != nil {
@@ -32,7 +31,6 @@ func NewBackend(backendType int) Backend {
 		}
 		opts := badger.DefaultOptions(dirname)
 		backend = NewBadgerBackend(opts)
-		break
 	default:
 		panic("unknown backend type")
 	}
@@ -45,7 +43,6 @@ func CloseBackend(b interface{}) {
 		break
 	case *BadgerBackend:
 		t.Close()
-		break
 	default:
 		panic("unknown backend type")
 	}
@@ -123,7 +120,7 @@ func TestAddMeta(t *testing.T) {
 
 		// Test adding an already existing meta
 		cmi.Abi = "abcd5678"
-		store.AddMeta(contractID, cmi)
+		err = store.AddMeta(contractID, cmi)
 		assert.NoError(t, err, "Error adding contract meta")
 
 		meta, err = store.GetContractMeta(contractID)
