@@ -29,7 +29,7 @@ func TestBadgerBackendBasic(t *testing.T) {
 	if e != nil {
 		t.Error(e)
 	}
-	_, e = b.Get([]byte("test"))
+	v, e = b.Get([]byte("test"))
 	if e != nil {
 		t.Error(e)
 	}

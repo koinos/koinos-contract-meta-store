@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/dgraph-io/badger"
+	"github.com/dgraph-io/badger/v3"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
