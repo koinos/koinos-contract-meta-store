@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/koinos/koinos-log-golang v0.0.0-20211026183556-16bf7f209e0f
-	github.com/koinos/koinos-mq-golang v0.0.0-20211026183607-441fb7106dd3
+	github.com/koinos/koinos-mq-golang v0.0.0-20220824200525-0230763309f3
 	github.com/koinos/koinos-proto-golang v0.2.1-0.20220224180227-6fbc5fe4a89a
 	github.com/koinos/koinos-util-golang v0.0.0-20220224201444-f21170226c31
 	github.com/mr-tron/base58 v1.2.0
