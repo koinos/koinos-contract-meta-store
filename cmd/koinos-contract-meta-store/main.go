@@ -77,7 +77,7 @@ func main() {
 	*logLevel = util.GetStringOption(logLevelOption, logLevelDefault, *logLevel, yamlConfig.ContractMetaStore, yamlConfig.Global)
 	*instanceID = util.GetStringOption(instanceIDOption, util.GenerateBase58ID(5), *instanceID, yamlConfig.ContractMetaStore, yamlConfig.Global)
 	*reset = util.GetBoolOption(resetOption, resetDefault, *reset, yamlConfig.ContractMetaStore, yamlConfig.Global)
-	*jobs = util.GetIntOption(jobsOptions, jobsDefault, *jobs, yamlConfig.ContractMetaStore, yamlConfig.Global)
+	*jobs = util.GetIntOption(jobsOption, jobsDefault, *jobs, yamlConfig.ContractMetaStore, yamlConfig.Global)
 
 	appID := fmt.Sprintf("%s.%s", appName, *instanceID)
 
