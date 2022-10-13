@@ -82,7 +82,7 @@ func main() {
 	appID := fmt.Sprintf("%s.%s", appName, *instanceID)
 
 	// Initialize logger
-	logFilename := path.Join(util.GetAppDir(baseDir, appName), logDir, "block_store.log")
+	logFilename := path.Join(util.GetAppDir(baseDir, appName), logDir, appName + ".log")
 	err = log.InitLogger(*logLevel, false, logFilename, appID)
 	if err != nil {
 		fmt.Printf("Invalid log-level: %s. Please choose one of: debug, info, warn, error", *logLevel)
