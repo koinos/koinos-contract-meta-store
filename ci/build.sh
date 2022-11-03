@@ -6,7 +6,7 @@ set -x
 if [[ -z $BUILD_DOCKER ]]; then
    go get ./...
    mkdir -p build
-   go build -o build/koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
+   go build -ldflags="-X main.Commit=$(git rev-parse HEAD)" -o build/koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
 else
    TAG="$TRAVIS_BRANCH"
    if [ "$TAG" = "master" ]; then

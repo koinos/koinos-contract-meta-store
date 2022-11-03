@@ -10,7 +10,7 @@ RUN apk update && \
         linux-headers
 
 RUN go get ./... && \
-    go build -o koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
+    go build -ldflags="-X main.Commit=$(git rev-parse HEAD)" -o koinos_contract_meta_store cmd/koinos-contract-meta-store/main.go
 
 FROM alpine:latest
 COPY --from=builder /koinos-contract-meta-store/koinos_contract_meta_store /usr/local/bin
