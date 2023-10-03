@@ -14,7 +14,7 @@ import (
 
 	"github.com/dgraph-io/badger/v3"
 	"github.com/koinos/koinos-contract-meta-store/internal/metastore"
-	log "github.com/koinos/koinos-log-golang"
+	log "github.com/koinos/koinos-log-golang/v2"
 	koinosmq "github.com/koinos/koinos-mq-golang"
 	"github.com/koinos/koinos-proto-golang/koinos/broadcast"
 	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
