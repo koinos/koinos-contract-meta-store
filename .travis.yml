@@ -21,7 +21,7 @@ jobs:
         - go get ./...
       script:
         - go build -ldflags="-X main.Commit=$(git rev-parse HEAD)" cmd/koinos-contract-meta-store/main.go
-        - go test -v github.com/koinos/koinos-contract-meta-store/internal/metastore -coverprofile=contractmetastore.out -coverpkg=./internal/metastore
+        - go test -v github.com/koinos/koinos-contract-meta-store/internal/metastore -coverprofile=coverage.out -coverpkg=./internal/metastore
         - gcov2lcov -infile=coverage.out -outfile=coverage.info
         - golangci-lint run ./...
       after_success:
