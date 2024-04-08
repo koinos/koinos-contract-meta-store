@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/contract_meta_store"
 	"google.golang.org/protobuf/proto"
 )
 

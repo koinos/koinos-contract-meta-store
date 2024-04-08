@@ -9,7 +9,7 @@ import (
 	"github.com/dgraph-io/badger/v3"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/contract_meta_store"
 )
 
 const (
