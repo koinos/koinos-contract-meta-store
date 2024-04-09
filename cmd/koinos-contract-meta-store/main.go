@@ -16,14 +16,14 @@ import (
 	"github.com/koinos/koinos-contract-meta-store/internal/metastore"
 	log "github.com/koinos/koinos-log-golang/v2"
 	koinosmq "github.com/koinos/koinos-mq-golang"
-	"github.com/koinos/koinos-proto-golang/koinos/broadcast"
-	"github.com/koinos/koinos-proto-golang/koinos/contract_meta_store"
-	"github.com/koinos/koinos-proto-golang/koinos/protocol"
-	"github.com/koinos/koinos-proto-golang/koinos/rpc"
-	contract_meta_store_rpc "github.com/koinos/koinos-proto-golang/koinos/rpc/contract_meta_store"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/broadcast"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/contract_meta_store"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/protocol"
+	"github.com/koinos/koinos-proto-golang/v2/koinos/rpc"
+	contract_meta_store_rpc "github.com/koinos/koinos-proto-golang/v2/koinos/rpc/contract_meta_store"
 	"github.com/mr-tron/base58"
 
-	util "github.com/koinos/koinos-util-golang"
+	util "github.com/koinos/koinos-util-golang/v2"
 	flag "github.com/spf13/pflag"
 )
 
@@ -172,7 +172,7 @@ func main() {
 		}
 
 		if err != nil {
-			e := &rpc.ErrorResponse{Message: string(err.Error())}
+			e := &rpc.ErrorStatus{Message: string(err.Error())}
 			response.Response = &contract_meta_store_rpc.ContractMetaStoreResponse_Error{Error: e}
 		}
 
