@@ -2,7 +2,6 @@ package metastore
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -25,7 +24,7 @@ func NewBackend(backendType int) Backend {
 	case MapBackendType:
 		backend = NewMapBackend()
 	case BadgerBackendType:
-		dirname, err := ioutil.TempDir(os.TempDir(), "metastore-test-*")
+		dirname, err := os.MkdirTemp(os.TempDir(), "metastore-test-*")
 		if err != nil {
 			panic("unable to create temp directory")
 		}
